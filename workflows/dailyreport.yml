@@ -3,7 +3,8 @@ name: daily-report
 on:
     schedule:
         - cron: '0 10 * * *'  #run everyday at 10am
-
+    workflow-dispatch:
+    
 jobs:
     my-jobs:
         runs-on: ubuntu-latest
