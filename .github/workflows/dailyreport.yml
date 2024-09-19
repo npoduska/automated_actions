@@ -28,3 +28,4 @@ jobs:
           AUTH_TOKEN:  ${{secrets.AUTH_TOKEN}}
           FROM_NUMBER:  ${{secrets.FROM_NUMBER}}
           TO_NUMBER:  ${{secrets.TO_NUMBER}}
+        run: Python ARCC_stock_check.py
