@@ -4,10 +4,27 @@ on:
    schedule:
      - cron: '0 10  * * 1-6' # Run every day at 10am, monday-saturday
    workflow_dispatch:
+#The following is just a very basic version of running A Github Action
+# jobs:
+#   my-jobs:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: first-step
+#         run: echo "hi there world!"
 
 jobs:
-  my-jobs:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: first-step
-        run: echo "hi there world!"
+      - uses: action/checkout@v2
+      - uses: actions/setup-python@v2
+        with: 
+          python-version: 3.x
+      - name: Run ARCC stock check code
+        env:
+          API_KEY: ${{secrets.API_KEY}}
+          NEWS_API_KEY:  ${{secrets.NEWS_API_KEY}}
+          ACCOUNT_SID:  ${{secrets.ACCOUNT_SID}}
+          AUTH_TOKEN:  ${{secrets.AUTH_TOKEN}}
+          FROM_NUMBER:  ${{secrets.FROM_NUMBER}}
+          TO_NUMBER:  ${{secrets.TO_NUMBER}}
