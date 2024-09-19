@@ -1,13 +1,13 @@
 name: daily-report
 
 on:
-    schedule:
-        - cron: '0 10 * * *'  #run everyday at 10am
-    workflow-dispatch:
+   schedule:
+     - cron: '0 10 * * *'
+   workflow_dispatch:
 
 jobs:
-    my-jobs:
-        runs-on: ubuntu-latest
-        steps: 
-            - name: first-step
-            run: echo "hi there world!"
+  my-jobs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: first-step
+        run: echo "hi there world!"
