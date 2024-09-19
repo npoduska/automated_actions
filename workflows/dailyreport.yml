@@ -1,0 +1,12 @@
+name: daily-report
+
+on:
+    schedule:
+        - cron: '0 10 * * *'  #run everyday at 10am
+
+jobs:
+    my-jobs:
+        runs-on: ubuntu-latest
+        steps: 
+            - name: first-step
+            run: echo "hi there world!"
