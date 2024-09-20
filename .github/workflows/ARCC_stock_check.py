@@ -58,7 +58,7 @@ else:
     # print("Trending Down")
     trending_condition = "Trending Downward"
 
-if latest_low_price < 20:
+if latest_low_price < 21:
     # print("GET NEWS!")
     client = Client(account_sid, auth_token)
     message = client.messages.create(
