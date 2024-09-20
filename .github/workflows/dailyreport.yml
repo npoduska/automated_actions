@@ -16,30 +16,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with: 
           python-version: '3.x'
-      - name: Debug - Repository Info
-        run: |
-          echo "Current directory: $(pwd)"
-          echo "Repository contents:"
-          ls -R
-          echo "Git status:"
-          git status
-          echo "Git log (last 5 commits):"
-          git log --oneline -n 5
-          echo "Current branch:"
-          git branch --show-current
       - name: Create requirements.txt
         run: |
-          echo "requests==2.31.0" > requirements.txt
-          echo "twilio==8.5.0" >> requirements.txt
-          echo "python-dateutil==2.8.2" >> requirements.txt
+          echo "requests==2.31.0" > .github/workflows/requirements.txt
+          echo "twilio==8.5.0" >> .github/workflows/requirements.txt
+          echo "python-dateutil==2.8.2" >> .github/workflows/requirements.txt
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r .github/workflows/requirements.txt
       - name: Run ARCC stock check code
         env:
           API_KEY: ${{secrets.API_KEY}}
@@ -48,4 +39,4 @@ jobs:
           AUTH_TOKEN: ${{secrets.AUTH_TOKEN}}
           FROM_NUMBER: ${{secrets.FROM_NUMBER}}
           TO_NUMBER: ${{secrets.TO_NUMBER}}
-        run: python ARCC_stock_check.py
+        run: python .github/workflows/ARCC_stock_check.py
