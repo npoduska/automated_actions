@@ -19,6 +19,8 @@ TO_NUMBER= os.environ.get('TO_NUMBER')
 account_sid = os.environ.get('ACCOUNT_SID')
 auth_token = os.environ.get('AUTH_TOKEN')
 
+print("All secrets collected successfully")
+
 ## STEP 1: Use https://www.alphavantage.co
 
 #Collect all the stock information
@@ -26,6 +28,7 @@ url = f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={STO
 r = requests.get(url)
 stock_data = r.json()
 # print((stock_data))
+print("Collected Stock info successfully")
 
 low_prices =[]  #Initialize an array
 
@@ -36,6 +39,7 @@ for date, values in stock_data['Time Series (Daily)'].items():
     
 latest_low_price = int(low_prices[0])   #Get the most current low price from the list
 formatted_low_prices = [f"${float(price):.2f}" for price in low_prices]  #Format the list of string numbers to "$12.34"
+print("Stock prices collected.")
 # print((latest_low_price))
 # Now high_values and low_values arrays contain all 'high' and 'low' values
 # print("High values:", high_values)
@@ -49,7 +53,7 @@ short_sma = sum(low_prices[:20]) / 20
 # Calculate the average of the first 50 values
 long_sma = sum(low_prices[:50]) / 50
 # print (f" Long term (50 day) simple moving average: ${long_sma:.2f}")
-
+print("SMA successfully")
 #Calculate simple moving average (trending up or downward)
 if short_sma > long_sma:
     # print("Trending Up")
@@ -65,7 +69,7 @@ if latest_low_price < 21:
     body= f"A new low! The past 3 trading day lows are: {formatted_low_prices[:3]}. {trending_condition}",
     from_=f"{FROM_NUMBER}",
     to=f"{TO_NUMBER}",)
-    
+    print("Message sent via SMS successfully")
 ## STEP 2: Use https://newsapi.org
 # Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME. 
 
