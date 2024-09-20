@@ -20,6 +20,17 @@ jobs:
       - uses: actions/setup-python@v4
         with: 
           python-version: '3.x'
+      - name: Debug - Repository Info
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Repository contents:"
+          ls -R
+          echo "Git status:"
+          git status
+          echo "Git log (last 5 commits):"
+          git log --oneline -n 5
+          echo "Current branch:"
+          git branch --show-current
       - name: Create requirements.txt
         run: |
           echo "requests==2.31.0" > requirements.txt
