@@ -2,9 +2,12 @@
 Whenever the stock gets below a certain price OR is trending downward,
 an alert is sent, along with a few news clips about that stock."""
 
-import requests, smtplib, os
+import requests, smtplib, os, logging
 # from config import MY_EMAIL, TO_EMAIL, APP_EMAIL_PASSWORD, API_KEY, NEWS_API_KEY #Get your own API Keys!
 from datetime import *
+
+logging.basicConfig(filename='.github/workflows/script.log', level=logging.INFO, 
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 API_KEY= os.environ.get('API_KEY')
 my_email = os.environ.get('MY_EMAIL')
@@ -13,6 +16,8 @@ app_password= os.environ.get('APP_EMAIL_PASSWORD')
 NEWS_API_KEY= os.environ.get('NEWS_API_KEY')
 
 print("check your email now.")
+# Then use logging instead of print throughout your script
+logging.info("Starting stock check...")
 
 STOCK = "ARCC"
 COMPANY_NAME = "Ares Capital Corporation"
@@ -40,6 +45,7 @@ formatted_low_prices = [f"${float(price):.2f}" for price in low_prices]  #Format
 # print("Low prices:", low_prices)
 # print(low_prices)
 print(f"The past 3 trading day lows are: {formatted_low_prices[:3]}")
+logging.info(f"The past 3 trading day lows are: {formatted_low_prices[:3]}")
 
 # Calculate the average of the first 20 values
 short_sma = sum(low_prices[:20]) / 20
@@ -58,6 +64,7 @@ else:
 
 if latest_low_price < 21:
     print("GET NEWS!")
+    logging.info("GETTING THE NEWS!")
     # client = Client(account_sid, auth_token)
     # message = client.messages.create(
     # body= f"A new low! The past 3 trading day lows are: {formatted_low_prices[:3]}. {trending_condition}",
@@ -74,6 +81,7 @@ if latest_low_price < 21:
             email_message = email_message.encode('ascii',errors='ignore')
             connection.sendmail(from_addr= my_email, to_addrs= to_email, msg= email_message)
     print("check your email now.")
+    logging.info("email should have been sent now")
     
 ## STEP 2: Use https://newsapi.org
 # Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME. 
@@ -112,6 +120,7 @@ if latest_low_price < 21:
                     email_message = email_message.encode('ascii',errors='ignore')
                     connection.sendmail(from_addr= my_email, to_addrs= to_email, msg= email_message)
             print("check your email now.")
+            logging.info("email should have been recieved now")
     else:
         print(f"There are no news articles found for {COMPANY_NAME}.")  
         # client = Client(account_sid, auth_token)
@@ -130,3 +139,4 @@ if latest_low_price < 21:
                 email_message = email_message.encode('ascii',errors='ignore')
                 connection.sendmail(from_addr= my_email, to_addrs= to_email, msg= email_message)
         print("check your email now.")
+        logging.info("no errors should have occured with this code if it reaches this message")
