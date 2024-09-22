@@ -3,13 +3,15 @@ Whenever the stock gets below a certain price OR is trending downward,
 an alert is sent, along with a few news clips about that stock."""
 
 import requests, smtplib
-from config import MY_EMAIL, TO_EMAIL, APP_EMAIL_PASSWORD, API_KEY, NEWS_API_KEY #Get your own API Keys!
+# from config import MY_EMAIL, TO_EMAIL, APP_EMAIL_PASSWORD, API_KEY, NEWS_API_KEY #Get your own API Keys!
 from datetime import *
 
-my_email = MY_EMAIL
-to_email = TO_EMAIL
-app_password= APP_EMAIL_PASSWORD
-    
+API_KEY= os.environ.get('API_KEY')
+my_email = os.environ.get('MY_EMAIL')
+to_email = os.environ.get('TO_EMAIL')
+app_password= os.environ.get('APP_EMAIL_PASSWORD')
+NEWS_API_KEY= os.environ.get('NEWS_API_KEY')
+
 print("check your email now.")
 
 STOCK = "ARCC"
