@@ -72,8 +72,7 @@ if latest_low_price < 21:
     # to=f"{TO_NUMBER}",)
     email_message= f"Subject: A new low!\n\nThe past 3 trading day lows are: {formatted_low_prices[:3]}. {trending_condition}"
 
-    with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
-        connection.starttls()
+    with smtplib.SMTP_SSL("smtp.gmail.com", port=465) as connection:
         connection.login(user= my_email  , password= app_password)
         try:
             connection.sendmail(from_addr= my_email, to_addrs= to_email, msg= email_message)
@@ -111,8 +110,7 @@ if latest_low_price < 21:
             # to=f"{TO_NUMBER}",)
             email_message= f"Subject: News related to your stock\n\nNews source: {news_source}, Title: {news_title}, Desciption: {news_description}"
 
-            with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
-                connection.starttls()
+            with smtplib.SMTP_SSL("smtp.gmail.com", port=465) as connection:
                 connection.login(user= my_email  , password= app_password)
                 try:
                     connection.sendmail(from_addr= my_email, to_addrs= to_email, msg= email_message)
@@ -130,8 +128,7 @@ if latest_low_price < 21:
         # to=f"{TO_NUMBER}",) 
         email_message= f"Subject: No news for {STOCK}\n\nThere are no news articles found for {COMPANY_NAME}."
 
-        with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
-            connection.starttls()
+        with smtplib.SMTP_SSL("smtp.gmail.com", port=465) as connection:
             connection.login(user= my_email  , password= app_password)
             try:
                 connection.sendmail(from_addr= my_email, to_addrs= to_email, msg= email_message)
