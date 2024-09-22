@@ -22,6 +22,13 @@ jobs:
         uses: actions/setup-python@v4
         with: 
           python-version: '3.x'
+      - name: Cache pip packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
       - name: Create requirements.txt
         run: |
           echo "requests==2.31.0" > .github/workflows/requirements.txt
@@ -38,3 +45,9 @@ jobs:
           TO_EMAIL: $ {{secrets.TO_EMAIL}}
           MY_EMAIL: $ {{secrets.MY_EMAIL}}
         run: python .github/workflows/Stock_email_main.py
+      - name: Upload log file
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: script-log
+          path: .github/workflows/script.log
