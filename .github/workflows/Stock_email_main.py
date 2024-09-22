@@ -2,7 +2,7 @@
 Whenever the stock gets below a certain price OR is trending downward,
 an alert is sent, along with a few news clips about that stock."""
 
-import requests, smtplib
+import requests, smtplib, os
 # from config import MY_EMAIL, TO_EMAIL, APP_EMAIL_PASSWORD, API_KEY, NEWS_API_KEY #Get your own API Keys!
 from datetime import *
 
