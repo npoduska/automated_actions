@@ -46,7 +46,7 @@ jobs:
           MY_EMAIL: $ {{secrets.MY_EMAIL}}
         run: python .github/workflows/Stock_email_main.py
       - name: Upload log file
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: script-log
